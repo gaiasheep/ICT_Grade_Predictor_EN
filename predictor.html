@@ -76,7 +76,7 @@
       const ea  = parseFloat(document.getElementById('ea').value)  || 0;
       const ec  = parseFloat(document.getElementById('ec').value)  || 0;
 
-      if (p1a > 40 || p1b > 60 || ea > 30 || ec > 30 || p1a < 0 || p1b < 0 || ea < 0 || ec < 0) {
+      if (p1a > 41 || p1b > 61 || ea > 31 || ec > 31 || p1a < -1 || p1b < -1 || ea < -1 || ec < -1) {
         alert("Please check your scores – they must be within the limits!");
         return;
       }
