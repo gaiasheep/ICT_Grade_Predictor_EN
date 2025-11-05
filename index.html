@@ -60,13 +60,13 @@
       <div class="progress"><div class="bar" id="bar"></div></div>
       <div class="comment" id="comment">Ready to calculate</div>
       <p style="color:#7f8c8d; font-size:14px;">
-        Formula: (Paper 1 × 55% + Paper 2 × 25%) ÷ 80% × 100<br>
-        The remaining 20% comes from other Paper 2 sections.
+        Formula: (Paper 1 × 55% + Paper 2 × 25%) ÷ 80 × 100<br>
+        The remaining 20% comes from other SBA section.
       </p>
     </div>
 
     <footer>
-      Updated 2025 | Made by Teacher | Share with classmates
+      Updated 2025 | Made by Gaia Yang | Share with classmates
     </footer>
   </div>
 
@@ -88,8 +88,8 @@
       const paper1 = p1a + p1b;           // 滿分 100
       const paper2 = ea + ec;             // 滿分 60
       const weighted = (paper1 / 100) * 0.55 + (paper2 / 60) * 0.25;  // 80% 部分
-      const predictedTotal = weighted / 0.8 * 100;  // 換算成 100% → 160 分
-      const percent = (predictedTotal / 160) * 100;
+      const percent = weighted / 80 * 100;  // 轉為百分比
+      //const percent = (predictedTotal / 160) * 100;
 
       // 顯示
       document.getElementById('total').textContent = predictedTotal.toFixed(1) + " / 160";
