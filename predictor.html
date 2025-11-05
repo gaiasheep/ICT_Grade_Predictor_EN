@@ -31,7 +31,7 @@
   <div class="container">
     <header>
       <h1>ICT Grade Predictor</h1>
-      <div class="subtitle">Instant score forecast based on your current marks</div>
+      <div class="subtitle">Accurate prediction based on official weighting</div>
     </header>
 
     <div class="form">
@@ -41,7 +41,7 @@
       </div>
       <div class="input-group">
         <label>Paper 1B (out of 60)</label>
-        <input type="number" id="p1b" min="0" max="60" step="0.5" placeholder="e.g. 45" />
+        <input type="number" id="p1b" min="0" max="60" step="0.5" placeholder="e.g. 52" />
       </div>
       <div class="input-group">
         <label>Elective A (out of 30)</label>
@@ -60,12 +60,13 @@
       <div class="progress"><div class="bar" id="bar"></div></div>
       <div class="comment" id="comment">Ready to calculate</div>
       <p style="color:#7f8c8d; font-size:14px;">
-        Note: The remaining 20% comes from other Paper 2 sections – your final grade could be even higher!
+        Formula: (Paper 1 × 55% + Paper 2 × 25%) ÷ 80% × 100<br>
+        The remaining 20% comes from other Paper 2 sections.
       </p>
     </div>
 
     <footer>
-      Made by Gaia Yang · 2025 | Share with friends
+      Updated 2025 | Made by Teacher | Share with classmates
     </footer>
   </div>
 
@@ -76,28 +77,30 @@
       const ea  = parseFloat(document.getElementById('ea').value)  || 0;
       const ec  = parseFloat(document.getElementById('ec').value)  || 0;
 
-      if (p1a > 41 || p1b > 61 || ea > 31 || ec > 31 || p1a < -1 || p1b < -1 || ea < -1 || ec < -1) {
+      // 驗證範圍
+      if (p1a > 40 || p1b > 60 || ea > 30 || ec > 30 || 
+          p1a < 0 || p1b < 0 || ea < 0 || ec < 0) {
         alert("Please check your scores – they must be within the limits!");
         return;
       }
 
-      const paper1 = p1a + p1b;           // 100 marks
-      const paper2 = ea + ec;             // 60 marks
-      const score1 = paper1 * 0.55;        // 55%
-      const score2 = paper2 * 0.25;        // 25%
-      const overall = paper1/110*55+paper2/60*25
-      //const predicted = score1 + score2;
-      //const overall = predicted * (160 / 128);
-      const percent = (overall / 80) * 100;
+      // 正確計算
+      const paper1 = p1a + p1b;           // 滿分 100
+      const paper2 = ea + ec;             // 滿分 60
+      const weighted = (paper1 / 100) * 0.55 + (paper2 / 60) * 0.25;  // 80% 部分
+      const predictedTotal = weighted / 0.8 * 100;  // 換算成 100% → 160 分
+      const percent = (predictedTotal / 160) * 100;
 
-      document.getElementById('total').textContent = overall.toFixed(1) + " / 160";
+      // 顯示
+      document.getElementById('total').textContent = predictedTotal.toFixed(1) + " / 160";
       document.getElementById('percent').textContent = percent.toFixed(1) + "%";
       document.getElementById('bar').style.width = percent + "%";
 
+      // 鼓勵語
       let comment = "";
-      if (percent >= 78) comment = "Amazing! Predicted A*!";
-      else if (percent >= 65) comment = "Excellent! High chance for A!";
-      else if (percent >= 55) comment = "Good! Keep it up!";
+      if (percent >= 90) comment = "Amazing! Predicted A*!";
+      else if (percent >= 80) comment = "Excellent! High chance for A!";
+      else if (percent >= 70) comment = "Good! Keep pushing!";
       else comment = "Room to improve! Practice more!";
 
       document.getElementById('comment').textContent = comment;
